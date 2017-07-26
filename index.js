@@ -3,6 +3,17 @@ var app = express();
 
 app.use(express.static('public'));
 
-app.listen(8000, function () {
-  console.log('Example app listening on port 8000!');
+app.use(function(err, req, res, next){
+  if(!err){
+    next();
+  }
+  res.status(500).send(JSON.stringify(err));
+});
+
+app.use(function(req, res){
+  return res.redirect('/');
+})
+
+app.listen(3000, function () {
+  console.log('server start and listening on port 3000.');
 });
